@@ -598,7 +598,7 @@ var draw = function() {
         }
         if(spaceShips.length < 6 )
         {
-            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),random(0,255),random(0,255),random(0,255)));
+            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),random(0,1),random(0,255),random(0,255),random(0,255)));
             //particles.push(new particleObj(mouseX,mouseY));
         }
         if(level === 1 )
@@ -660,7 +660,7 @@ var draw = function() {
         mycontrol.display();
         if(spaceShips.length < 8 )
         {
-            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),random(0,255),random(0,255),random(0,255)));
+            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),random(0,1),random(0,255),random(0,255),random(0,255)));
             //particles.push(new particleObj(mouseX,mouseY));
         }
         if(level === 2 )
@@ -721,7 +721,7 @@ var draw = function() {
         mycontrol.display();
         if(spaceShips.length < 8 )
         {
-            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),random(0,255),random(0,255),random(0,255)));
+            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),random(0,1),random(0,255),random(0,255),random(0,255)));
             //particles.push(new particleObj(mouseX,mouseY));
         }
         if(level === 3 )
@@ -744,7 +744,7 @@ var draw = function() {
 
                 if(dist(spaceShips[i].x,spaceShips[i].y,ball.position.x,
                     ball.position.y) < 30){
-                    spaceShips[i] = null;
+                    spaceShips[i] = new spaceShipObj(random(0,400),random(30,370),random(0,1),random(0,255),random(0,255),random(0,255));
                     score += 2;
                 }
             }
