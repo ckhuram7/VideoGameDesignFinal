@@ -617,7 +617,7 @@ var draw = function() {
         if(mycontrol.y < 10)
         {
             level = 2;
-            start = 3;
+            start = 4;
             nextlevel = 2;
             updatescore = 1;
         }
@@ -630,7 +630,7 @@ var draw = function() {
             score = score + time;
             updatescore = 0;
         }
-        text("Congrats click enter to go to next level",150,150,100,100);
+        text("Congrats on Level 2 click enter to go to next level",150,150,100,100);
         mycontrol.y = 380;
         mycontrol.x = 100;
     }
@@ -638,7 +638,7 @@ var draw = function() {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////Level Three        /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    else if (start === 4 && gameover === 0 && nextlevel === 1)
+    else if (start === 5 && gameover === 0 && nextlevel === 2)
     {
         background(220,243,245);
         textSize(16);
@@ -678,7 +678,7 @@ var draw = function() {
             updatescore = 1;
         }
     }
-    else if (start === 4 && gameover === 0 && nextlevel === 2)
+    else if (start === 5 && gameover === 0 && nextlevel === 3)
     {
         background(220,243,245);
         if ( updatescore === 1 )
@@ -686,7 +686,7 @@ var draw = function() {
             score = score + time;
             updatescore = 0;
         }
-        text("Congrats click enter to go to next level",150,150,100,100);
+        text("Congrats on Level 3 click enter to go to next level",150,150,100,100);
         mycontrol.y = 380;
         mycontrol.x = 100;
     }
