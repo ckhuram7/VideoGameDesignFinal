@@ -637,7 +637,7 @@ var draw = function() {
         text("Congrats click enter to go to next level",150,150,100,100);
         mycontrol.y = 380;
         mycontrol.x = 100;
-
+        time = 20;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -703,6 +703,7 @@ var draw = function() {
         text("Congrats on Level 2 click enter to go to next level",150,150,100,100);
         mycontrol.y = 380;
         mycontrol.x = 100;
+        time = 20;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -765,7 +766,7 @@ var draw = function() {
         if(mycontrol.y < 10)
         {
             level = 3;   // Update this value Accordingly
-            start = 4;   // Update this value Accordingly
+            start = 5;   // Update this value Accordingly
             nextlevel = 3;
             updatescore = 1;
         }
@@ -781,7 +782,89 @@ var draw = function() {
         text("Congrats on Level 3 click enter to go to next level",150,150,100,100);
         mycontrol.y = 380;
         mycontrol.x = 100;
+        time = 30;
     }
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////Level Four         /////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        else if (start === 5 && gameover === 0 && nextlevel === 2)
+        {
+            background(220,243,245);
+            textSize(16);
+            milli++;
+            if(milli ===100){
+                 time--;
+                 milli=0;
+            }
+            if(time < 1)
+            {
+                gameover = 1;
+            }
+            if(lives < 1)
+            {
+              gameover = 1;
+            }
+            text("Round Two: Shoot",0,20);
+            text("Level: " + level,0,35);
+            text("Lives: " + lives,69,35);
+            text("Time: " + time ,250,20);
+            text("Score: " + score ,250,35);
+            mycontrol.display();
+            if(spaceShips.length < 14)
+            {
+                spaceShips.push(new spaceShipObj(random(0,400),random(30,350),1,random(0,255),random(0,255),random(0,255)));
+                //particles.push(new particleObj(mouseX,mouseY));
+            }
+            if(level === 3 )
+            {
+                if (ball.thrown > 0)
+                {
+                  ball.draw();
+                  //score = score -1;
+                }
+
+
+                for (var i = 0; i< spaceShips.length; i++){
+                    spaceShips[i].move();
+                    spaceShips[i].display();
+                    if (dist(spaceShips[i].x, spaceShips[i].y, mycontrol.x, mycontrol.y) < 30) {
+                        lives--;
+                        mycontrol.x = 350;
+                        mycontrol.y = 360;
+                    }
+
+                    if(dist(spaceShips[i].x,spaceShips[i].y,ball.position.x,
+                        ball.position.y) < 30){
+                        spaceShips[i] = new spaceShipObj(random(0,400),random(30,370),0,random(0,255),random(0,255),random(0,255));
+                        score += 2;
+                    }
+                }
+            }
+
+            if(mycontrol.y < 10)
+            {
+                level = 4;   // Update this value Accordingly
+                start = 6;   // Update this value Accordingly
+                nextlevel = 4;
+                updatescore = 1;
+            }
+        }
+        else if (start === 6 && gameover === 0 && nextlevel === 4)
+        {
+            background(220,243,245);
+            if ( updatescore === 1 )
+            {
+                score = score + time;
+                updatescore = 0;
+            }
+            text("Congrats on Level 3 click enter to go to next level",150,150,100,100);
+            mycontrol.y = 380;
+            mycontrol.x = 100;
+            time = 35;
+        }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////Game Over          /////////////////////////////////////////////////////////////
