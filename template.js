@@ -672,8 +672,8 @@ var draw = function() {
 
         if(mycontrol.y < 10)
         {
-            level = 2;
-            start = 3;
+            level = 3;   // Update this value Accordingly
+            start = 4;   // Update this value Accordingly
             nextlevel = 2;
             updatescore = 1;
         }
