@@ -859,7 +859,7 @@ var draw = function() {
 
         if(mycontrol.y < 10)
         {
-            level = 3;   // Update this value Accordingly
+            level = 4;   // Update this value Accordingly
             start = 5;   // Update this value Accordingly
             nextlevel = 3;
             updatescore = 1;
@@ -940,7 +940,7 @@ var draw = function() {
 
             if(mycontrol.y < 10)
             {
-                level = 4;   // Update this value Accordingly
+                level = 5;   // Update this value Accordingly
                 start = 6;   // Update this value Accordingly
                 nextlevel = 4;
                 updatescore = 1;
