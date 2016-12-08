@@ -393,6 +393,100 @@ loadingDock.prototype.move =function(){
 };
 
 /////////////////////////////////////////
+////////////Cat     Objects//////////////
+/////////////////////////////////////////
+
+
+var wanderState = function() {
+    this.angle = 0;
+    this.wanderDist = 0;
+    this.step = new PVector(0,0);
+};
+
+var chaseState = function() {
+    this.step = new PVector(0,0);
+};
+
+var catObj = function(x, y) {
+    this.position = new PVector(x, y);
+    this.state = [new wanderState(), new chaseState()];
+    this.currState = 0;
+};
+
+var targetObj = function(x, y) {
+    this.x = x;
+    this.y = y;
+};
+
+//var cat = new catObj(100, 100);
+var target = new targetObj(0, 0);
+
+catObj.prototype.changeState = function(x) {
+    this.currState = x;
+};
+
+///// EXPERIMENT /////
+wanderState.prototype.execute = function(me) {
+    if (this.wanderDist <= 0) {
+        this.wanderDist = random(50, 80);
+        this.angle = random(0, 360);
+        this.step.set(cos(this.angle), sin(this.angle));
+    }
+    this.wanderDist--;
+    me.position.add(this.step);
+    if (me.position.x > 415) {
+        me.position.x = -15;
+    }
+    else if (me.position.x < -15) {
+        me.position.x = 415;
+    }
+    if (me.position.y > 415) {
+        me.position.y = -15;
+    }
+    else if (me.position.y < -15) {
+        me.position.y = 415;
+    }
+
+    if (dist(me.position.x, me.position.y, target.x, target.y) < 150) {
+        me.changeState(1);
+    }
+};
+
+///// EXPERIMENT /////
+chaseState.prototype.execute = function(me) {
+    if (dist(target.x, target.y, me.position.x, me.position.y) > 5) {
+        this.step.set(target.x - me.position.x, target.y - me.position.y);
+        this.step.normalize();
+        this.step.mult(1/2);
+        me.position.add(this.step);
+    }
+
+    if (dist(me.position.x, me.position.y, target.x, target.y) > 150) {
+        me.changeState(0);
+    }
+};
+
+catObj.prototype.draw = function() {
+    fill(255, 255,255);
+    ellipse(this.position.x, this.position.y, 30, 30);
+    triangle(this.position.x-2, this.position.y-14, this.position.x-19, this.position.y-16, this.position.x-14, this.position.y-2);
+    triangle(this.position.x+2, this.position.y-14, this.position.x+19, this.position.y-16, this.position.x+14, this.position.y-2);
+    fill(0,0,0);
+    ellipse(this.position.x - 8, this.position.y, 5, 5);  // eyes
+    ellipse(this.position.x + 8, this.position.y, 5, 5);
+    ellipse(this.position.x, this.position.y+3, 3, 3);    // nose
+    line(this.position.x-3, this.position.y+3, this.position.x-16, this.position.y);    // whiskers
+    line(this.position.x+3, this.position.y+3, this.position.x+16, this.position.y);
+    line(this.position.x-3, this.position.y+4, this.position.x-18, this.position.y+4);
+    line(this.position.x+3, this.position.y+4, this.position.x+18, this.position.y+4);
+    line(this.position.x-3, this.position.y+6, this.position.x-16, this.position.y+10);
+    line(this.position.x+3, this.position.y+6, this.position.x+16, this.position.y+10);
+};
+
+
+
+
+/////////////////////////////////////////
 ////////////BallOBJ Objects//////////////
 /////////////////////////////////////////
 var ballObj = function(x, y) {
@@ -790,7 +884,7 @@ var draw = function() {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////Level Four         /////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        else if (start === 5 && gameover === 0 && nextlevel === 2)
+        else if (start === 5 && gameover === 0 && nextlevel === 3)
         {
             background(220,243,245);
             textSize(16);
