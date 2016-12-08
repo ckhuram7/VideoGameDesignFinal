@@ -1,5 +1,5 @@
 var sketchProc=function(processingInstance){ with (processingInstance){
-size(400, 400); 
+size(400, 400);
 frameRate(60);
 
 
@@ -9,21 +9,28 @@ frameRate(60);
 // Final Project
 angleMode = "radians";
 
+/////////////////////////////////////////////
+////////////////Start of Game Code /////////
+////////////////////////////////////////////
+
 // Global Variables Defined
-var start = 0;
-var gameover = 0;
-var restart = 0;
+var start = 0;        // Start Variable updated when you hit Enter
+var gameover = 0;     // Triggered when time runs out
+var restart = 0;      // Something I plan to implement to restart the game
+var mycontrol;        // The player you will be controlling.
+var clear = 1;        // Variable Used to clear the screen as you move through the inital splash screens
+var lives = 5;        //  Sort of a Health bar as you are allowed five hits total before game is over
+var level = 0;        //  Used to show what level you are on as you try to play the game
+var score = 0;        // Updated Score as you beat the time
+var time = 20;        // Time given for the first level will be updated as you move on
+var milli = 0;        // Used to Update Time and clock count down
+var nextlevel = 0;
+var updatescore = 0;
+// End of Global Variables
+
+//////////// Variables  Used for the srolling tab when you select color //////
 var moving = null;
 var c = [{x:100,y:210},{x:100,y:260},{x:100,y:310}];
-var mycontrol; 
-var clear = 1;
-var lives = 5;
-var level = 0;
-var score = 0;
-var time = 20;
-var milli = 0;
-var nextlevel = 0;
-// End of Global Variables
 
 
 /////////////////////////////////////////
@@ -116,7 +123,7 @@ animalObj.prototype.move =function(){
         this.x -= 1;
         if ((this.x > 390) || (this.x < 10)) {
             this.x = 390;
-        }  
+        }
     }
     // Collision Check with walls
     //for (var i=0; i<walls.length; i++) {
@@ -135,7 +142,7 @@ animalObj.prototype.move =function(){
 var spaceShipObj = function(x,y,dir,r,g,b){
     this.r = r;  this.g = g;  this.b = b;  // THis allows for different colors
     this.dir = dir;  // This allows for the movement of different directions
-    this.x = x;      //  The X and Y cordinates 
+    this.x = x;      //  The X and Y cordinates
     this.y = y;
 };
 // SpaceShipObj that I Control
@@ -143,8 +150,8 @@ var spaceShipObj = function(x,y,dir,r,g,b){
 // Space Ship Prototype Draw Function
 spaceShipObj.prototype.display = function(){
     fill (this.r, this.g, this.b);   // Changes the Color of the Objects created
-    ellipse(this.x,this.y,12,8); // Top Circle 
-    ellipse(this.x,this.y+8,20,10);  // Makes the Shape of the Body 
+    ellipse(this.x,this.y,12,8); // Top Circle
+    ellipse(this.x,this.y+8,20,10);  // Makes the Shape of the Body
     fill (0, 217, 255); // Changes the color to blue for the Windows
     rect(this.x-8 ,this.y+6,3,3); // Window 1
     rect(this.x -3,this.y+6,3,3); // Window 2
@@ -171,7 +178,7 @@ spaceShipObj.prototype.move =function(){
         this.x -= 1;
         if ((this.x > 390) || (this.x < 10)) {
             this.x = 390;
-        }  
+        }
     }
     //if (dist(this.x, this.y, mycontrol.x, mycontrol.y) < 14) {
     //    gameover = 1;
@@ -187,7 +194,7 @@ spaceShipObj.prototype.move =function(){
 ////////////Turkey Obj  /////////////////
 /////////////////////////////////////////
 
-var tankObj = function(x, y) {
+var turkObj = function(x, y) {
     this.position = new PVector(x, y);
     //this.state = [new haltState(), new turnState(), new chaseState()];
     this.currState = 0;
@@ -196,7 +203,7 @@ var tankObj = function(x, y) {
     this.whisker2 = new PVector(0, 0);
 };
 
-tankObj.prototype.draw = function() {
+turkObj.prototype.draw = function() {
     //noFill();
     fill (219, 44, 164);
     ellipse(this.position.x-7,this.position.y-4,5,10);
@@ -212,12 +219,15 @@ tankObj.prototype.draw = function() {
     ellipse(this.position.x-2,this.position.y+3,5,5);
     ellipse(this.position.x+2,this.position.y+3,5,5);
        // for (var i = 0; i < points.length; i++) {
-        //    vertex(points[i].x, points[i].y);   
+        //    vertex(points[i].x, points[i].y);
         ///vertex(points[0].x, points[0].y);
     //endShape();
-     
 };
 
+///////////////NOTES ///////////////////////
+// Use the Turkey Character as one of the monsters,
+// Make possible animation as either the head moves or its feathers
+/////////////////////////////////////////////
 
 /////////////////////////////////////////
 ////////////Tile Maps  /////////////////
@@ -245,9 +255,9 @@ var tileMap = [
     "w                ww",
     "w     ww    ww  wwww",
     "wwwwwwwwwwwwwwwwwwww"];
-    
-    
-var tilemap2 = [
+
+
+var tileMap2 = [
         "                    ",
         "                    ",
         "                    ",
@@ -338,6 +348,10 @@ var tilemap2 = [
         "                    ",
         "                    ",
         "                    ",];
+
+//var wallObj = function()
+
+
 /////////////////////////////////////////
 ////////////Loading Dock/////////////////
 /////////////////////////////////////////
@@ -365,7 +379,7 @@ loadingDock.prototype.move =function(){
         this.x -= 1;
         if ((this.x > 390) || (this.x < 10)) {
             this.x = 390;
-        }  
+        }
     }
     //if (dist(this.x, this.y, myControl.x, myControl.y) < 18) {
     //    myControl.x = this.x;
@@ -374,7 +388,7 @@ loadingDock.prototype.move =function(){
     //{
     //    if (dist(this.x, this.y, myControl.x, myControl.y) > 35) {
     //        gameover = 1;
-    //    }    
+    //    }
     //}
 };
 
@@ -393,7 +407,7 @@ var mouseDragged = function () {
 
 var mouseMoved = function () {
     moving = null;
-};        
+};
 var mouseClicked = function() {
     //start = 1;
 };
@@ -415,6 +429,10 @@ var keyPressed = function() {
     }
     if (keyCode === DOWN) {
         mycontrol.y+= 4;
+    }
+    if(keyCode === 115)
+    {
+        gameover = 1;
     }
 };
 /////////////////////////////////////////
@@ -476,13 +494,13 @@ var draw = function() {
         rect(100, 300, 200, 20, 29);
         fill(158, 158, 158);
         noStroke();
-        
+
         for (var i = 0; i < c.length; i ++) {
             line (c[i].x, 100, c[i].x, 300);
             fill (255, 255, 255);
             ellipse (c[i].x, c[i].y, 20, 20);
         }
-        
+
         if (moving !== null) {
             c[moving].x = constrain (mouseX, 100,300);
         }
@@ -499,6 +517,11 @@ var draw = function() {
         //sample.display();
         text("Click enter to begin", 90, 350);
     }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////Level One        ///////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     else if (start === 3 && gameover === 0 && nextlevel === 0)
     {
         background(220,243,245);
@@ -510,19 +533,23 @@ var draw = function() {
         }
         if(time < 1)
         {
-            gameover = 1;   
+            gameover = 1;
         }
         text("Round One: Dodge",0,20);
         text("Level: " + level,0,35);
         text("Lives: " + lives,69,35);
-        text("Time: " + time ,330,20);
-        text("Score: " + score ,330,35);
+        text("Time: " + time ,250,20);
+        text("Score: " + score ,250,35);
         mycontrol.display();
+        if (start > 3)
+        {
+            start = 3;
+        }
         if(level === 1 )
         {
              for (var i = 0; i< spaceShipsLevelOne.length; i++){
                 spaceShipsLevelOne[i].move();
-                spaceShipsLevelOne[i].display();  
+                spaceShipsLevelOne[i].display();
                 if (dist(spaceShipsLevelOne[i].x, spaceShipsLevelOne[i].y, mycontrol.x,                     mycontrol.y) < 30) {
                     lives--;
                     mycontrol.x = 350;
@@ -535,17 +562,26 @@ var draw = function() {
             level = 2;
             start = 3;
             nextlevel = 1;
+            updatescore = 1;
         }
     }
     else if (start === 3 && gameover === 0 && nextlevel === 1)
     {
         background(220,243,245);
-        score = score + time;
-        text("Congrats click enter to go to next level",150,150,100,100); 
+        if ( updatescore === 1 )
+        {
+            score = score + time;
+            updatescore = 0;
+        }
+        text("Congrats click enter to go to next level",150,150,100,100);
         mycontrol.y = 380;
         mycontrol.x = 100;
-        
+
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////Level Two        ///////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     else if (start === 4 && gameover === 0 && nextlevel === 1)
     {
         background(220,243,245);
@@ -557,19 +593,19 @@ var draw = function() {
         }
         if(time < 1)
         {
-            gameover = 1;   
+            gameover = 1;
         }
         text("Round One: Dodge",0,20);
         text("Level: " + level,0,35);
         text("Lives: " + lives,69,35);
-        text("Time: " + time ,330,20);
-        text("Score: " + score ,330,35);
+        text("Time: " + time ,250,20);
+        text("Score: " + score ,250,35);
         mycontrol.display();
         if(level === 2 )
         {
              for (var i = 0; i< spaceShipsLevelOne.length; i++){
                 spaceShipsLevelOne[i].move();
-                spaceShipsLevelOne[i].display();  
+                spaceShipsLevelOne[i].display();
                 if (dist(spaceShipsLevelOne[i].x, spaceShipsLevelOne[i].y, mycontrol.x,                     mycontrol.y) < 30) {
                     lives--;
                     mycontrol.x = 350;
@@ -577,8 +613,87 @@ var draw = function() {
                 }
             }
         }
-        
+
+        if(mycontrol.y < 10)
+        {
+            level = 2;
+            start = 3;
+            nextlevel = 2;
+            updatescore = 1;
+        }
     }
+    else if (start === 4 && gameover === 0 && nextlevel === 2)
+    {
+        background(220,243,245);
+        if ( updatescore === 1 )
+        {
+            score = score + time;
+            updatescore = 0;
+        }
+        text("Congrats click enter to go to next level",150,150,100,100);
+        mycontrol.y = 380;
+        mycontrol.x = 100;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////Level Three        /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    else if (start === 4 && gameover === 0 && nextlevel === 1)
+    {
+        background(220,243,245);
+        textSize(16);
+        milli++;
+        if(milli ===100){
+             time--;
+             milli=0;
+        }
+        if(time < 1)
+        {
+            gameover = 1;
+        }
+        text("Round One: Dodge",0,20);
+        text("Level: " + level,0,35);
+        text("Lives: " + lives,69,35);
+        text("Time: " + time ,250,20);
+        text("Score: " + score ,250,35);
+        mycontrol.display();
+        if(level === 2 )
+        {
+             for (var i = 0; i< spaceShipsLevelOne.length; i++){
+                spaceShipsLevelOne[i].move();
+                spaceShipsLevelOne[i].display();
+                if (dist(spaceShipsLevelOne[i].x, spaceShipsLevelOne[i].y, mycontrol.x,                     mycontrol.y) < 30) {
+                    lives--;
+                    mycontrol.x = 350;
+                    mycontrol.y = 360;
+                }
+            }
+        }
+
+        if(mycontrol.y < 10)
+        {
+            level = 2;
+            start = 3;
+            nextlevel = 2;
+            updatescore = 1;
+        }
+    }
+    else if (start === 4 && gameover === 0 && nextlevel === 2)
+    {
+        background(220,243,245);
+        if ( updatescore === 1 )
+        {
+            score = score + time;
+            updatescore = 0;
+        }
+        text("Congrats click enter to go to next level",150,150,100,100);
+        mycontrol.y = 380;
+        mycontrol.x = 100;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////Game Over          /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     else if (gameover === 1){
         background(102, 255, 0);
         fill(255, 0, 255);
@@ -589,6 +704,10 @@ var draw = function() {
         restart = 1;
     }
 };
+
+/////////////////////////////////////////////
+//////////////////End of Game Code /////////
+////////////////////////////////////////////
 
 
 }};
