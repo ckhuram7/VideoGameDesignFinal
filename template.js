@@ -545,12 +545,17 @@ var draw = function() {
         {
             start = 3;
         }
+        if(spaceShips.length < 6 )
+        {
+            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),random(0,255),random(0,255),random(0,255)));
+            //particles.push(new particleObj(mouseX,mouseY));
+        }
         if(level === 1 )
         {
-             for (var i = 0; i< spaceShipsLevelOne.length; i++){
-                spaceShipsLevelOne[i].move();
-                spaceShipsLevelOne[i].display();
-                if (dist(spaceShipsLevelOne[i].x, spaceShipsLevelOne[i].y, mycontrol.x,                     mycontrol.y) < 30) {
+             for (var i = 0; i< spaceShips.length; i++){
+                spaceShips[i].move();
+                spaceShips[i].display();
+                if (dist(spaceShips[i].x, spaceShips[i].y, mycontrol.x, mycontrol.y) < 30) {
                     lives--;
                     mycontrol.x = 350;
                     mycontrol.y = 360;
@@ -601,12 +606,17 @@ var draw = function() {
         text("Time: " + time ,250,20);
         text("Score: " + score ,250,35);
         mycontrol.display();
+        if(spaceShips.length < 8 )
+        {
+            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),random(0,255),random(0,255),random(0,255)));
+            //particles.push(new particleObj(mouseX,mouseY));
+        }
         if(level === 2 )
         {
-             for (var i = 0; i< spaceShipsLevelOne.length; i++){
-                spaceShipsLevelOne[i].move();
-                spaceShipsLevelOne[i].display();
-                if (dist(spaceShipsLevelOne[i].x, spaceShipsLevelOne[i].y, mycontrol.x,                     mycontrol.y) < 30) {
+             for (var i = 0; i< spaceShips.length; i++){
+                spaceShips[i].move();
+                spaceShips[i].display();
+                if (dist(spaceShips[i].x, spaceShips[i].y, mycontrol.x, mycontrol.y) < 30) {
                     lives--;
                     mycontrol.x = 350;
                     mycontrol.y = 360;
@@ -616,7 +626,7 @@ var draw = function() {
 
         if(mycontrol.y < 10)
         {
-            level = 2;
+            level = 3;
             start = 4;
             nextlevel = 2;
             updatescore = 1;
@@ -651,18 +661,23 @@ var draw = function() {
         {
             gameover = 1;
         }
-        text("Round One: Dodge",0,20);
+        text("Round Two: Shoot",0,20);
         text("Level: " + level,0,35);
         text("Lives: " + lives,69,35);
         text("Time: " + time ,250,20);
         text("Score: " + score ,250,35);
         mycontrol.display();
-        if(level === 2 )
+        if(spaceShips.length < 8 )
         {
-             for (var i = 0; i< spaceShipsLevelOne.length; i++){
-                spaceShipsLevelOne[i].move();
-                spaceShipsLevelOne[i].display();
-                if (dist(spaceShipsLevelOne[i].x, spaceShipsLevelOne[i].y, mycontrol.x,                     mycontrol.y) < 30) {
+            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),random(0,255),random(0,255),random(0,255)));
+            //particles.push(new particleObj(mouseX,mouseY));
+        }
+        if(level === 3 )
+        {
+             for (var i = 0; i< spaceShips.length; i++){
+                spaceShips[i].move();
+                spaceShips[i].display();
+                if (dist(spaceShips[i].x, spaceShips[i].y, mycontrol.x, mycontrol.y) < 30) {
                     lives--;
                     mycontrol.x = 350;
                     mycontrol.y = 360;
@@ -674,7 +689,7 @@ var draw = function() {
         {
             level = 3;   // Update this value Accordingly
             start = 4;   // Update this value Accordingly
-            nextlevel = 2;
+            nextlevel = 3;
             updatescore = 1;
         }
     }
