@@ -596,9 +596,13 @@ var draw = function() {
         {
             start = 3;
         }
+        if(lives < 1)
+        {
+          gameover = 1;
+        }
         if(spaceShips.length < 6 )
         {
-            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),1,random(0,255),random(0,255),random(0,255)));
+            spaceShips.push(new spaceShipObj(random(0,400),random(30,340),1,random(0,255),random(0,255),random(0,255)));
             //particles.push(new particleObj(mouseX,mouseY));
         }
         if(level === 1 )
@@ -652,6 +656,10 @@ var draw = function() {
         {
             gameover = 1;
         }
+        if(lives < 1)
+        {
+          gameover = 1;
+        }
         text("Round One: Dodge",0,20);
         text("Level: " + level,0,35);
         text("Lives: " + lives,69,35);
@@ -660,7 +668,7 @@ var draw = function() {
         mycontrol.display();
         if(spaceShips.length < 8 )
         {
-            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),0,random(0,255),random(0,255),random(0,255)));
+            spaceShips.push(new spaceShipObj(random(0,400),random(30,350),0,random(0,255),random(0,255),random(0,255)));
             //particles.push(new particleObj(mouseX,mouseY));
         }
         if(level === 2 )
@@ -713,15 +721,19 @@ var draw = function() {
         {
             gameover = 1;
         }
+        if(lives < 1)
+        {
+          gameover = 1;
+        }
         text("Round Two: Shoot",0,20);
         text("Level: " + level,0,35);
         text("Lives: " + lives,69,35);
         text("Time: " + time ,250,20);
         text("Score: " + score ,250,35);
         mycontrol.display();
-        if(spaceShips.length < 8 )
+        if(spaceShips.length < 10 )
         {
-            spaceShips.push(new spaceShipObj(random(0,400),random(30,370),1,random(0,255),random(0,255),random(0,255)));
+            spaceShips.push(new spaceShipObj(random(0,400),random(30,350),1,random(0,255),random(0,255),random(0,255)));
             //particles.push(new particleObj(mouseX,mouseY));
         }
         if(level === 3 )
