@@ -989,7 +989,7 @@ var draw = function() {
             text("Time: " + time ,250,20);
             text("Score: " + score ,250,35);
             mycontrol.display();
-            if(spaceShips.length < 2)
+            if(spaceShips2.length < 2)
             {
                 spaceShips2.push(new spaceShipObj(random(0,400),random(30,350),1,random(0,255),random(0,255),random(0,255)));
                 //particles.push(new particleObj(mouseX,mouseY));
