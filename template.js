@@ -392,6 +392,49 @@ loadingDock.prototype.move =function(){
     //}
 };
 
+/////////////////////////////////////////
+////////////BallOBJ Objects//////////////
+/////////////////////////////////////////
+var ballObj = function(x, y) {
+    this.position = new PVector(x, y);
+    this.dir = new PVector(0, 0);
+    this.thrown = 0;
+    this.gravity = new PVector(0,-0.5);
+    this.wind = new PVector(random(-0.3,0.3),0);
+
+};
+
+var ball = new ballObj(500, 600);
+//var gravity = new PVector(0, -1);
+//var wind = new PVector(1, 0);
+//var windSpeed = 0;
+
+
+ballObj.prototype.draw = function() {
+    fill(100, 219, 31);
+    pushMatrix();
+    translate(this.position.x, this.position.y);
+    rotate(this.angle);
+    ellipse(0, 0, 30, 30);
+    fill(166, 5, 166);
+    ellipse(6, 0, 6, 6);
+    ellipse(-6, 0, 6, 6);
+    ellipse(0, 6, 6, 6);
+    ellipse(0, -6, 6, 6);
+    popMatrix();
+    //ellipse(ball.position.x, ball.position.y, 20, 20);
+    if (this.thrown === 2) {
+        ball.position.add(this.dir);
+        ball.dir.add(this.gravity);
+        ball.dir.add(this.wind);
+    }
+    if ((ball.position.x < -10) || (ball.position.x > 410) ||
+    (ball.position.y < -10) || (ball.position.y > 410)) {
+        this.thrown = 0;
+    }
+};
+
+
 
 /////////////////////////////////////////
 ////////////Player Controls//////////////
@@ -429,6 +472,14 @@ var keyPressed = function() {
     }
     if (keyCode === DOWN) {
         mycontrol.y+= 4;
+    }
+    if (keyCode === 32){
+        // Updates the wind everytime
+        this.wind = new PVector(random(-0.3,0.3),0);
+        //ball.dir.set(mouseX-pmouseX, mouseY - pmouseY);
+        ball.dir.set(0,-2);
+        ball.position.set(mycontrol.x,mycontrol.y);
+        ball.thrown = 2;
     }
     if(keyCode === 115)
     {
@@ -553,8 +604,9 @@ var draw = function() {
         if(level === 1 )
         {
              for (var i = 0; i< spaceShips.length; i++){
-                spaceShips[i].move();
+
                 spaceShips[i].display();
+                spaceShips[i].move();
                 if (dist(spaceShips[i].x, spaceShips[i].y, mycontrol.x, mycontrol.y) < 30) {
                     lives--;
                     mycontrol.x = 350;
@@ -674,13 +726,26 @@ var draw = function() {
         }
         if(level === 3 )
         {
-             for (var i = 0; i< spaceShips.length; i++){
+            if (ball.thrown > 0)
+            {
+              ball.draw();
+              //score = score -1;
+            }
+
+
+            for (var i = 0; i< spaceShips.length; i++){
                 spaceShips[i].move();
                 spaceShips[i].display();
                 if (dist(spaceShips[i].x, spaceShips[i].y, mycontrol.x, mycontrol.y) < 30) {
                     lives--;
                     mycontrol.x = 350;
                     mycontrol.y = 360;
+                }
+
+                if(dist(spaceShips[i].x,spaceShips[i].y,ball.position.x,
+                    ball.position.y) < 30){
+                    spaceShips[i] = null;
+                    score += 2;
                 }
             }
         }
