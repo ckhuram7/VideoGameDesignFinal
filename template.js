@@ -585,6 +585,7 @@ var keyPressed = function() {
 /////////////////////////////////////////
 var animals = [new animalObj(30,30,1),new animalObj(70,70,1),new animalObj(90,90,0),new animalObj(120,130,1),new animalObj(150,150,0),new animalObj(90,170,1)];
 var spaceShips = [new spaceShipObj(150,300,1,100,200,82),new spaceShipObj(10,270,0,200,200,82),new spaceShipObj(150,200,0,0,200,82),new spaceShipObj(10,230,0,200,200,82)];
+var spaceShips2 = [];
 
 //var spaceShipsLevelOne = [new spaceShipObj(150,100,1,100,200,82),new spaceShipObj(10,210,0,200,200,82),new spaceShipObj(150,290,0,0,200,82),new spaceShipObj(10,230,0,200,200,82)];
 
@@ -990,7 +991,7 @@ var draw = function() {
             mycontrol.display();
             if(spaceShips.length < 2)
             {
-                spaceShips.push(new spaceShipObj(random(0,400),random(30,350),1,random(0,255),random(0,255),random(0,255)));
+                spaceShips2.push(new spaceShipObj(random(0,400),random(30,350),1,random(0,255),random(0,255),random(0,255)));
                 //particles.push(new particleObj(mouseX,mouseY));
             }
             if(level === 5 )
@@ -1002,18 +1003,18 @@ var draw = function() {
                 }
 
 
-                for (var i = 0; i< spaceShips.length; i++){
-                    spaceShips[i].move();
-                    spaceShips[i].display();
-                    if (dist(spaceShips[i].x, spaceShips[i].y, mycontrol.x, mycontrol.y) < 30) {
+                for (var i = 0; i< spaceShips2.length; i++){
+                    spaceShips2[i].move();
+                    spaceShips2[i].display();
+                    if (dist(spaceShips2[i].x, spaceShips2[i].y, mycontrol.x, mycontrol.y) < 30) {
                         lives--;
                         mycontrol.x = 350;
                         mycontrol.y = 360;
                     }
 
-                    if(dist(spaceShips[i].x,spaceShips[i].y,ball.position.x,
+                    if(dist(spaceShips2[i].x,spaceShips2[i].y,ball.position.x,
                         ball.position.y) < 30){
-                        spaceShips[i] = new spaceShipObj(random(0,400),random(30,370),0,random(0,255),random(0,255),random(0,255));
+                        spaceShips2[i] = new spaceShipObj(random(0,400),random(30,370),0,random(0,255),random(0,255),random(0,255));
                         score += 2;
                     }
                 }
