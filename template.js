@@ -1032,6 +1032,11 @@ var draw = function() {
                         score += 4;
                     }
 
+                    if (dist(animals[i].x, animals[i].y, mycontrol.x, mycontrol.y) < 30) {
+                        lives--;
+                        mycontrol.x = 350;
+                        mycontrol.y = 360;
+                    }
                     // If it detects the ball it tries to move back
                     if(dist(animals[i].x,animals[i].y,ball.position.x,ball.position.y) < 80){
                             animals[i].x -= 1;
@@ -1102,12 +1107,12 @@ var draw = function() {
             text("Time: " + time ,250,20);
             text("Score: " + score ,250,35);
             mycontrol.display();
-            if(spaceShips2.length < 2)
+            if(spaceShips2.length < 3)
             {
                 spaceShips2.push(new spaceShipObj(random(0,400),random(30,350),1,random(0,255),random(0,255),random(0,255)));
                 //particles.push(new particleObj(mouseX,mouseY));
             }
-            if(level === 5 )
+            if(level === 6 )
             {
                 if (ball.thrown > 0)
                 {
@@ -1168,13 +1173,13 @@ var draw = function() {
 
             if(mycontrol.y < 10)
             {
-                level = 5;   // Update this value Accordingly
-                start = 6;   // Update this value Accordingly
-                nextlevel = 5;
+                level = 7;   // Update this value Accordingly
+                start = 8;   // Update this value Accordingly
+                nextlevel = 6;
                 updatescore = 1;
             }
         }
-        else if (start === 6 && gameover === 0 && nextlevel === 5)
+        else if (start === 8 && gameover === 0 && nextlevel === 6)
         {
             background(220,243,245);
             if ( updatescore === 1 )
@@ -1182,12 +1187,245 @@ var draw = function() {
                 score = score + time;
                 updatescore = 0;
             }
-            text("Congrats on Level 5 click enter to go to next level",150,150,100,100);
+            text("Congrats on Level 6 click enter to go to next level",150,150,100,100);
             mycontrol.y = 380;
             mycontrol.x = 100;
             time = 35;
         }
 
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                /////////////////////////////////////Level Seven         /////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                else if (start === 9 && gameover === 0 && nextlevel === 6)
+                {
+                    background(220,243,245);
+                    textSize(16);
+                    milli++;
+                    if(milli ===100){
+                         time--;
+                         milli=0;
+                    }
+                    if(time < 1)
+                    {
+                        gameover = 1;
+                    }
+                    if(lives < 1)
+                    {
+                      gameover = 1;
+                    }
+                    text("Round Two: Shoot",0,20);
+                    text("Level: " + level,0,35);
+                    text("Lives: " + lives,69,35);
+                    text("Time: " + time ,250,20);
+                    text("Score: " + score ,250,35);
+                    mycontrol.display();
+                    if(spaceShips2.length < 4)
+                    {
+                        spaceShips2.push(new spaceShipObj(random(0,400),random(30,350),1,random(0,255),random(0,255),random(0,255)));
+                        //particles.push(new particleObj(mouseX,mouseY));
+                    }
+                    if(level === 7 )
+                    {
+                        if (ball.thrown > 0)
+                        {
+                          ball.draw();
+                          //score = score -1;
+                        }
+
+
+                        for (var i = 0; i< spaceShips2.length; i++){
+                            spaceShips2[i].move();
+                            spaceShips2[i].display();
+                            if (dist(spaceShips2[i].x, spaceShips2[i].y, mycontrol.x, mycontrol.y) < 30) {
+                                lives--;
+                                mycontrol.x = 350;
+                                mycontrol.y = 360;
+                            }
+
+                            if(dist(spaceShips2[i].x,spaceShips2[i].y,ball.position.x,
+                                ball.position.y) < 30){
+                                spaceShips2[i] = new spaceShipObj(random(0,400),random(30,370),0,random(0,255),random(0,255),random(0,255));
+                                score += 2;
+                            }
+                        }
+
+                        for (var i = 0; i < 4; i++)
+                        {
+                            if(animals[i].y <15){
+                                animals[i].y += 5;
+                            }
+                            animals[i].draw();
+                            animals[i].move();
+                            if(dist(animals[i].x,animals[i].y,ball.position.x,
+                                ball.position.y) < 30){
+                                animals[i] = new animalObj(random(0,400),random(100,200));
+                                score += 1;
+                            }
+
+                            // If it detects the ball it tries to move back
+                            if(dist(animals[i].x,animals[i].y,ball.position.x,ball.position.y) < 80){
+                                    animals[i].x -= 1;
+                                    animals[i].y -= 1;
+
+                            }
+                            if(i <= 2){
+                                if(dist(animals[i].x,animals[i].y,animals[i+1].x,
+                                    animals[i+1].y) < 45){
+                                    if (animals[i].dir === 1)
+                                    {
+                                        animals[i].dir = 0;
+                                    }
+                                    else {
+                                        animals[i].dir = 1;
+                                    }
+                                }
+                            }
+                          }
+                    }
+
+                    if(mycontrol.y < 10)
+                    {
+                        level = 8;   // Update this value Accordingly
+                        start = 9;   // Update this value Accordingly
+                        nextlevel = 7;
+                        updatescore = 1;
+                    }
+                }
+                else if (start === 9 && gameover === 0 && nextlevel === 7)
+                {
+                    background(220,243,245);
+                    if ( updatescore === 1 )
+                    {
+                        score = score + time;
+                        updatescore = 0;
+                    }
+                    text("Congrats on Level 7 click enter to go to next level",150,150,100,100);
+                    mycontrol.y = 380;
+                    mycontrol.x = 100;
+                    time = 35;
+                }
+
+
+
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        /////////////////////////////////////Level Eight         /////////////////////////////////////////////////////////////
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        else if (start === 10 && gameover === 0 && nextlevel === 7)
+                        {
+                            background(220,243,245);
+                            textSize(16);
+                            milli++;
+                            if(milli ===100){
+                                 time--;
+                                 milli=0;
+                            }
+                            if(time < 1)
+                            {
+                                gameover = 1;
+                            }
+                            if(lives < 1)
+                            {
+                              gameover = 1;
+                            }
+                            text("Round Two: Shoot",0,20);
+                            text("Level: " + level,0,35);
+                            text("Lives: " + lives,69,35);
+                            text("Time: " + time ,250,20);
+                            text("Score: " + score ,250,35);
+                            mycontrol.display();
+                            if(spaceShips2.length < 4)
+                            {
+                                spaceShips2.push(new spaceShipObj(random(0,400),random(30,350),1,random(0,255),random(0,255),random(0,255)));
+                                //particles.push(new particleObj(mouseX,mouseY));
+                            }
+                            if(level === 8 )
+                            {
+                                if (ball.thrown > 0)
+                                {
+                                  ball.draw();
+                                  //score = score -1;
+                                }
+
+                                cat.draw();
+                                cat.state[cat.currState].execute(cat);
+                                if (dist(cat.x, cat.y, mycontrol.x, mycontrol.y) < 30) {
+                                    lives--;
+                                    mycontrol.x = 350;
+                                    mycontrol.y = 360;
+                                }
+
+                                for (var i = 0; i< spaceShips2.length; i++){
+                                    spaceShips2[i].move();
+                                    spaceShips2[i].display();
+                                    if (dist(spaceShips2[i].x, spaceShips2[i].y, mycontrol.x, mycontrol.y) < 30) {
+                                        lives--;
+                                        mycontrol.x = 350;
+                                        mycontrol.y = 360;
+                                    }
+
+                                    if(dist(spaceShips2[i].x,spaceShips2[i].y,ball.position.x,
+                                        ball.position.y) < 30){
+                                        spaceShips2[i] = new spaceShipObj(random(0,400),random(30,370),0,random(0,255),random(0,255),random(0,255));
+                                        score += 2;
+                                    }
+                                }
+
+                                for (var i = 0; i < 4; i++)
+                                {
+                                    if(animals[i].y <15){
+                                        animals[i].y += 5;
+                                    }
+                                    animals[i].draw();
+                                    animals[i].move();
+                                    if(dist(animals[i].x,animals[i].y,ball.position.x,
+                                        ball.position.y) < 30){
+                                        animals[i] = new animalObj(random(0,400),random(100,200));
+                                        score += 1;
+                                    }
+
+                                    // If it detects the ball it tries to move back
+                                    if(dist(animals[i].x,animals[i].y,ball.position.x,ball.position.y) < 80){
+                                            animals[i].x -= 1;
+                                            animals[i].y -= 1;
+
+                                    }
+                                    if(i <= 2){
+                                        if(dist(animals[i].x,animals[i].y,animals[i+1].x,
+                                            animals[i+1].y) < 45){
+                                            if (animals[i].dir === 1)
+                                            {
+                                                animals[i].dir = 0;
+                                            }
+                                            else {
+                                                animals[i].dir = 1;
+                                            }
+                                        }
+                                    }
+                                  }
+                            }
+
+                            if(mycontrol.y < 10)
+                            {
+                                level = 9;   // Update this value Accordingly
+                                start = 10;   // Update this value Accordingly
+                                nextlevel = 8;
+                                updatescore = 1;
+                            }
+                        }
+                        else if (start === 10 && gameover === 0 && nextlevel === 8)
+                        {
+                            background(220,243,245);
+                            if ( updatescore === 1 )
+                            {
+                                score = score + time;
+                                updatescore = 0;
+                            }
+                            text("Congrats on Level 8 click enter to go to next level",150,150,100,100);
+                            mycontrol.y = 380;
+                            mycontrol.x = 100;
+                            time = 35;
+                        }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////Game Over          /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
