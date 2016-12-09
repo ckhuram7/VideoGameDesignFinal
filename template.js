@@ -1019,7 +1019,7 @@ var draw = function() {
                     }
                 }
 
-                for (var i = 0; i < 4; i++)
+                for (var i = 0; i < animals.length; i++)
                 {
                     if(animals[i].y <15){
                         animals[i].y += 5;
@@ -1028,8 +1028,8 @@ var draw = function() {
                     animals[i].move();
                     if(dist(animals[i].x,animals[i].y,ball.position.x,
                         ball.position.y) < 30){
-                        animals[i] = new animalObj(random(0,400),random(100,200));
-                        score += 1;
+                        animals[i] = new animalObj(random(0,400),random(100,200),1);
+                        score += 4;
                     }
 
                     // If it detects the ball it tries to move back
