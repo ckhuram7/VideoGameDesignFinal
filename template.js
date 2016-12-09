@@ -1421,7 +1421,7 @@ var draw = function() {
                                 score = score + time;
                                 updatescore = 0;
                             }
-                            text("Congrats on Level 8 click enter to go to next level",150,150,100,100);
+                            text("Congrats you won",150,150,100,100);
                             mycontrol.y = 380;
                             mycontrol.x = 100;
                             time = 35;
